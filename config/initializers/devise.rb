@@ -317,9 +317,8 @@ Devise.setup do |config|
     Rails.application.credentials.GOOGLE_CLIENT_SECRET[:key],
     {
       callback_path: "/users/auth/google_oauth2/callback",
-      provider_ignores_state: false,
       scope: 'https://www.googleapis.com/auth/calendar',
       access_type: 'offline', # Request a refresh token for long-term access
-      prompt: 'consent'
+      prompt: 'consent',
     }
 end

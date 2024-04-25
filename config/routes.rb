@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
+                                    sessions: 'users/sessions',
+                                    registrations: "users/registrations",
+                                    passwords: "users/passwords" }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -9,4 +12,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "welcome#index"
+
+
+  get "/dashboard", to: "users#show", as: :dashboard
+  # get "/redirect", to: "omniauth_callbacks#calendar", as: :redirect
+  get "/callback", to: "omniauth_callbacks#callback", as: :callback
 end
