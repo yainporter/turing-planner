@@ -17,4 +17,8 @@ Rails.application.routes.draw do
   get "/dashboard", to: "users#show", as: :dashboard
   # get "/redirect", to: "omniauth_callbacks#calendar", as: :redirect
   # get "/callback", to: "omniauth_callbacks#callback", as: :callback
+  get "/redirect", to: "calendars#redirect"
+  get "/callback", to: "calendars#callback"
+  get "/calendars", to: "calendars#calendars"
+  get "/events/:calendar_id", to: "calendars#events", as: "events", calendar_id: "/[^\/]+/"
 end
