@@ -318,5 +318,6 @@ Devise.setup do |config|
     Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET, :key),
     {
       scope: ["email", "calendar"]
+      # hd: ["turing.edu"]
     }
 end
