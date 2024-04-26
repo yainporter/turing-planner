@@ -33,3 +33,4 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/client_secret_170751465115-r18mogv1t2g3rbqt37f976p6pcijcbvo.apps.googleusercontent.com.json

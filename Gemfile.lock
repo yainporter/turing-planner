@@ -129,6 +129,7 @@ GEM
       net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-api-ruby-client (9001.0)
     google-apis-calendar_v3 (0.39.0)
       google-apis-core (>= 0.14.0, < 2.a)
     google-apis-core (0.14.1)
@@ -412,6 +413,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
+  google-api-ruby-client
   google-apis-calendar_v3
   importmap-rails
   jbuilder

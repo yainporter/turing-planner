@@ -4,12 +4,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    client = Signet::OAuth2::Client.new(client_options)
-      # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.from_omniauth(request.env['omniauth.auth'])
+    require 'pry'; binding.pry
+    auth_hash = request.env['omniauth.auth']
+    session[:authorization] = auth_hash[:credentials][:token]
+    @user = User.from_omniauth(auth_hash)
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-      sign_in_and_redirect client.authorization_uri.to_s
+      sign_in_and_redirect @user, event: :authentication
     else
       session['devise.google_data'] = request.env['omniauth.auth'].except('extra') # Removing extra as it can overflow some session stores
       redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
@@ -23,12 +24,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def client_options
     {
-      client_id: Rails.applications.credentials.dig(:GOOGLE_CLIENT_ID, :key),
-      client_secret: Rails.applications.credentials.dig(:GOOGLE_CLIENT_SECRET, :key),
+      client_id: Rails.application.credentials.dig(:GOOGLE_CLIENT_ID, :key),
+      client_secret: Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET, :key),
       authorization_uri: "https://accounts.google.com/o/oauth2/auth",
       token_credential_uri: "https://oauth2.googleapis.com/token",
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY,
-      redirect_uri: user_google_oauth2_omniauth_callback_path
+      redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback"
     }
   end
 end

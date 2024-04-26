@@ -315,5 +315,8 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2,
     Rails.application.credentials.dig(:GOOGLE_CLIENT_ID, :key),
-    Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET, :key)
+    Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET, :key),
+    {
+      scope: ["email", "calendar"]
+    }
 end
