@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "welcome#index"
-
+  get '/user' => "users#show", :as => :user_root
 
   get "/dashboard", to: "users#show", as: :dashboard
   # get "/redirect", to: "omniauth_callbacks#calendar", as: :redirect

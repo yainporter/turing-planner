@@ -4,7 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    require 'pry'; binding.pry
     auth_hash = request.env['omniauth.auth']
     session[:authorization] = auth_hash[:credentials][:token]
     @user = User.from_omniauth(auth_hash)
