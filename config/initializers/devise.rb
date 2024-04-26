@@ -312,13 +312,8 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 
   ### omniauth-google-oauth2 gem setup
+
   config.omniauth :google_oauth2,
-    Rails.application.credentials.GOOGLE_CLIENT_ID[:key],
-    Rails.application.credentials.GOOGLE_CLIENT_SECRET[:key],
-    {
-      callback_path: "/users/auth/google_oauth2/callback",
-      scope: 'https://www.googleapis.com/auth/calendar',
-      access_type: 'offline', # Request a refresh token for long-term access
-      prompt: 'consent',
-    }
+    Rails.application.credentials.dig(:GOOGLE_CLIENT_ID, :key),
+    Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET, :key)
 end
