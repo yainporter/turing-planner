@@ -413,6 +413,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
+  faraday
   google-api-ruby-client
   google-apis-calendar_v3
   importmap-rails

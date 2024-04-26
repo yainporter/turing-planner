@@ -8,7 +8,6 @@
 
 <ul>
   <% @event_list.items.each do |event| %>
-  <% require 'pry'; binding.pry %>
     <li><%= event.summary %> (<%= event.id %>)</li>
   <% end %>
 </ul>

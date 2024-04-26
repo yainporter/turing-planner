@@ -20,7 +20,7 @@ RSpec.describe "Nav Partial", type: :feature do
     it "has a working log in link" do
       expect(page.current_path).to eq(root_path)
       click_on("Log In")
-      expect(page.current_path).to eq(new_user_session)
+      expect(page.current_path).to eq(new_user_session_path)
     end
   end
 end
