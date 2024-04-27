@@ -67,6 +67,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "webmock"
   gem "vcr"
+  gem "timecop"
 end
 
 group :development do
