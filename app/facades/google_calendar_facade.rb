@@ -16,4 +16,3 @@ class GoogleCalendarFacade
     end
   end
 end
-#module? #separate methods for each one?

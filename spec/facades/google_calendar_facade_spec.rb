@@ -3,10 +3,19 @@ require "rails_helper"
 RSpec.describe GoogleCalendarFacade do
   let(:turing_calendar_id){ "casimircreative.com_59k8msrrc2ddhcv787vubvp0s4" }
   let(:google_calendar_facade){ GoogleCalendarFacade.new(turing_calendar_id) }
+
   describe "initialize" do
     it "holds a calendar_id", :vcr do
       expect(google_calendar_facade).to be_a(GoogleCalendarFacade)
       expect(google_calendar_facade.calendar_id).to eq(turing_calendar_id)
+    end
+  end
+
+  describe "service_data" do
+    it "gets data from the GoogleCalendarService API", :vcr do
+      calendar_data = google_calendar_facade.service_data
+
+      expect(calendar_data).to be_a(Hash)
     end
   end
 
