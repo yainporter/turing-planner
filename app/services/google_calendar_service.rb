@@ -14,7 +14,13 @@ class GoogleCalendarService
     end
   end
 
-  #### Should these methods all be one, with an ID parameter instead?
+  # Let facade pass in calendar_id to find the correct calendar
+
+  def self.turing_calendar(calendar_id)
+    response = conn.get("/calendar/v3/calendars/#{calendar_id}@group.calendar.google.com/events?")
+    response.body
+  end
+
 
   def self.mod1_calendar
     response = conn.get("/calendar/v3/calendars/casimircreative.com_59k8msrrc2ddhcv787vubvp0s4@group.calendar.google.com/events?")

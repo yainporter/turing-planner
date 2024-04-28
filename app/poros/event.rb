@@ -1,5 +1,6 @@
 class Event
-  attr_reader :id, :start, :end, :time_zone, :summary, :html_link, :description, :conference_data, :extended_properties
+  attr_reader :id, :start, :end, :time_zone, :summary, :html_link, :description, :conference_data
+
   def initialize(data_hash)
     @id = data_hash[:id]
     @start = data_hash[:start][:dateTime]
@@ -8,7 +9,14 @@ class Event
     @sunmmary = data_hash[:summary]
     @html_link = data_hash[:htmlLink]
     @description = data_hash[:description]
-    @conference_data = data_hash[:conferenceData]
-    @extended_properties = data_hash[:extendedProperties]
+    @duration = @start && @end ? set_duration : nil
+    @conference_data = data_hash[:conferenceData] ? ZoomInfo.new(data_hash[:conferenceData]) : nil
+  end
+
+  def set_duration
+      ending = Time.parse(@end)
+      starting = Time.parse(@start)
+      minutes = (ending - starting) / 60
+      "#{minutes.to_i} minutes"
   end
 end
