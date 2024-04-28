@@ -14,18 +14,20 @@ class GoogleCalendarService
     end
   end
 
+  #### Should these methods all be one, with an ID parameter instead?
+
   def self.mod1_calendar
     response = conn.get("/calendar/v3/calendars/casimircreative.com_59k8msrrc2ddhcv787vubvp0s4@group.calendar.google.com/events?")
     response.body
   end
 
-  def self.mod3_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_e9k9b6n7bok174ilmqbfdr0sc4@group.calendar.google.com/events?")
+  def self.mod2_calendar
+    response = conn.get("/calendar/v3/calendars/casimircreative.com_rps2hg1nfqjih4rcl3gl6s4lpk@group.calendar.google.com/events?")
     response.body
   end
 
-  def self.mod2_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_rps2hg1nfqjih4rcl3gl6s4lpk@group.calendar.google.com/events?")
+  def self.mod3_calendar
+    response = conn.get("/calendar/v3/calendars/casimircreative.com_e9k9b6n7bok174ilmqbfdr0sc4@group.calendar.google.com/events?")
     response.body
   end
 
