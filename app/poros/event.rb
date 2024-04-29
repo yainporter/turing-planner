@@ -16,7 +16,7 @@ class Event
     @time_zone = data_hash[:start][:timeZone]
     @summary = data_hash[:summary]
     @html_link = data_hash[:htmlLink]
-    @description = parse_description(data_hash[:description])
+    @description = EventDescription.new(data_hash[:description])
     @duration = @start && @end ? set_duration : nil
     @conference_data = data_hash[:conferenceData] ? ZoomInfo.new(data_hash[:conferenceData]) : nil
   end
@@ -35,20 +35,20 @@ class Event
       "#{minutes.to_i} minutes"
   end
 
+  ### How do I test this?
   def parse_description(description_string)
-    # User Nokogiri to turn String into a structured format
+    # Use Nokogiri to turn String into a structured format
     doc = Nokogiri::HTML(description_string)
 
-    # Grab all of the text parsed, and join them
-    text_outside_links = doc.xpath('//text()').map(&:text).join(' ')
+    # Grab all of the text parsed, return only the text and join them into a big String with a newline
+    text_outside_links = doc.xpath('//text()').map(&:text).join("\n")
+
     # Initialize an empty array to store links and their text
-    sentences = text_outside_links.split(/[\.\?!]/)
-    formatted_text = sentences.map(&:strip).join("\n")
     links_and_text = []
 
     # Iterate through each link element
     doc.css('a').each do |link|
-      # Extract the link URL
+      # Extract the link URL, using key value pairs
       url = link['href']
 
       # Extract the text inside the link
@@ -60,9 +60,13 @@ class Event
 
     # Print the extracted links and their text
     links_and_text.each do |link|
-      puts "Link URL: #{link[:url]}"
-      puts "Link Text: #{link[:text]}"
-      puts formatted_text.gsub!(links_and_text.first[:text], '')
+      text_outside_links.gsub!(link[:text], '')
     end
+    formatted_text = text_outside_links.strip
+
+    {
+      links_and_text: links_and_text,
+      formatted_text: formatted_text
+    }
   end
 end
