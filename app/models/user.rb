@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  attr_reader :mod
+
   enum mod: ["Mod 0", "Mod 1", "Mod 2", "Mod 3", "Mod 4", "Mod 5", "Break"]
 
   def self.from_omniauth(access_token)

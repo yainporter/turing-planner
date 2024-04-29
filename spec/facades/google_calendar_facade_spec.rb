@@ -1,29 +1,22 @@
 require "rails_helper"
 
 RSpec.describe GoogleCalendarFacade do
-  let(:turing_calendar_id){ "casimircreative.com_59k8msrrc2ddhcv787vubvp0s4" }
-  let(:google_calendar_facade){ GoogleCalendarFacade.new(turing_calendar_id) }
+  let(:student_mod){ "Mod 1" }
+  let(:google_calendar_facade){ GoogleCalendarFacade.new("Mod 1") }
 
   describe "initialize" do
-    it "holds a calendar_id", :vcr do
+    it "holds a User's mod", :vcr do
       expect(google_calendar_facade).to be_a(GoogleCalendarFacade)
-      expect(google_calendar_facade.calendar_id).to eq(turing_calendar_id)
-    end
-  end
-
-  describe "service_data" do
-    it "gets data from the GoogleCalendarService API", :vcr do
-      calendar_data = google_calendar_facade.service_data
-
-      expect(calendar_data).to be_a(Hash)
+      expect(google_calendar_facade.mod).to eq(student_mod)
     end
   end
 
   describe "create_calendar_events" do
-    it "creates an array of events from Service data", :vcr do
+    it "creates an array of events from Service data based on a User's Mod", :vcr do
       events = google_calendar_facade.create_calendar_events
       events.each do | event |
         expect(event).to be_an Event
+        expect(event.mod).to eq()
       end
     end
   end
