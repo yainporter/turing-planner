@@ -47,7 +47,7 @@ gem "omniauth-rails_csrf_protection"
 gem "google-api-ruby-client"
 gem "google-apis-calendar_v3"
 gem "tailwindcss-rails"
-
+gem "nokogiri"
 gem "faraday"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
