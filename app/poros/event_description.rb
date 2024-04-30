@@ -13,7 +13,7 @@ class EventDescription
       text = link.text
 
       # Add the link URL and text to the array
-      links_and_text << { url: url, text: text }
+      links_and_text << { url: url, text: text, drive_id: drive_id(url) }
     end
     JSON.parse(links_and_text.to_json, symbolize_names: true)
   end
@@ -24,5 +24,10 @@ class EventDescription
       text_outside_links.gsub!(link[:text], '')
     end
     text_outside_links.strip
+  end
+
+  def drive_id(url)
+    url_parts = url.split('/')
+    url_parts[5]
   end
 end

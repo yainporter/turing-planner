@@ -24,7 +24,8 @@ RSpec.describe EventDescription do
       end
       expect(description.links_and_text.first).to eq({
         text: "2403 BE Accountabillibuddies List",
-        url: "https://docs.google.com/spreadsheets/d/1BRRJjDnUiJ3FxmCtwd_dE7deYvym0lM63OOlkYGnVAA/edit?usp=sharing"
+        url: "https://docs.google.com/spreadsheets/d/1BRRJjDnUiJ3FxmCtwd_dE7deYvym0lM63OOlkYGnVAA/edit?usp=sharing",
+        drive_id: "BRRJjDnUiJ3FxmCtwd_dE7deYvym0lM63OOlkYGnVAA"
         })
     end
   end
@@ -61,6 +62,12 @@ RSpec.describe EventDescription do
         • What do you wish you had more time for?
         • What is something about yourself that you learned this week?
         • What is causing you stress right now?")
+    end
+  end
+
+  describe "#drive_id" do
+    it "extracts the drive from the url", :vcr do
+      expect(description.drive_id("https://docs.google.com/spreadsheets/d/1BRRJjDnUiJ3FxmCtwd_dE7deYvym0lM63OOlkYGnVAA/edit?usp=sharing")).to eq("1BRRJjDnUiJ3FxmCtwd_dE7deYvym0lM63OOlkYGnVAA")
     end
   end
 end
