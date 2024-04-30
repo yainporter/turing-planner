@@ -2,11 +2,10 @@
   <div class="text-center pt-6">
     <h1 class="text-5xl">Schedule For the Day</h1>
   </div>
-
   <div id="accordion-nested-parent" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-    <% @event_list.each do |event| %>
-      <h2 id="accordion-collapse-heading-<%= event.id %>">
-        <%= button_to "#accordion-collapse-body-#{event.id}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-collapse-body-#{event.id}", aria_expanded: "true", aria_controls: "accordion-collapse-body-#{event.id}", turbo: false } do %>
+    <% @event_list.each.with_index(1) do |event, index| %>
+      <h2 id="accordion-collapse-heading-<%= index %>">
+        <%= button_to "#accordion-collapse-body-#{index}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-collapse-body-#{index}", aria_expanded: "true", aria_controls: "accordion-collapse-body-#{index}", turbo: false } do %>
           <div class="grid-rows-3">
             <%= event.start %>
             <%= event.summary %>
@@ -16,21 +15,21 @@
           </div>
         <% end %>
       </h2>
-      <div id="accordion-collapse-body-<%= event.id %>" class="hidden" aria-labelledby="accordion-collapse-heading-<%= event.id %>">
+      <div id="accordion-collapse-body-<%= index %>" class="hidden" aria-labelledby="accordion-collapse-heading-<%= index %>">
         <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
           <!-- Nested Accordion-->
           <p class="mb-2 text-gray-500 dark:text-gray-400"></p>
-          <% event.description.links_and_text.each do | link_and_text| %>
-            <div id="accordion-nested-collapse-<%= link_and_text[:drive_id] %>" data-accordion="collapse">
-              <h2 id="accordion-nested-collapse-heading-<%= link_and_text[:drive_id] %>" >
-                <%= button_to "#accordion-nested-collapse-body-#{link_and_text[:drive_id]}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-nested-collapse-body-#{link_and_text[:drive_id]}", aria_expanded: "false", aria_controls: "accordion-nested-collapse-body-#{link_and_text[:drive_id]}", turbo: false } do %>
+          <% event.description.links_and_text.each.with_index(1) do | link_and_text, sub_index| %>
+            <div id="accordion-nested-collapse-<%= "#{index}-#{sub_index}" %>" data-accordion="collapse">
+              <h2 id="accordion-nested-collapse-heading-<%= "#{index}-#{sub_index}" %>" >
+                <%= button_to "#accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", aria_expanded: "false", aria_controls: "accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", turbo: false } do %>
                   <%= link_and_text[:text] %>
                   <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"></path>
                   </svg>
                 <% end %>
               </h2>
-              <div id="accordion-nested-collapse-body-<%= link_and_text[:drive_id] %>" class="hidden" aria-labelledby="accordion-nested-collapse-heading-<%= link_and_text[:drive_id] %>">
+              <div id="accordion-nested-collapse-body-<%= "#{index}-#{sub_index}" %>" class="hidden" aria-labelledby="accordion-nested-collapse-heading-<%= "#{index}-#{sub_index}" %>">
                 <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                   <p class="mb-2 text-gray-500 dark:text-gray-400">
                     hello
