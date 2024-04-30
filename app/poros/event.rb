@@ -26,7 +26,7 @@ class Event
   def event_descriptions(description)
     event_descriptions = EventDescription.new(description)
     {
-      links_and_drive_id: event_descriptions.links_and_text,
+      links_and_text: event_descriptions.links_and_text,
       formatted_text: event_descriptions.formatted_text
     }
   end
