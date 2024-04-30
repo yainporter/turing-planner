@@ -31,3 +31,4 @@ class EventDescription
     url_parts[5]
   end
 end
+

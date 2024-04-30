@@ -25,5 +25,9 @@ RSpec.describe Event do
     it "has a ZoomInfo object if not nil", :vcr do
       expect(event2.conference_data).to be_a(ZoomInfo)
     end
+
+    it "has a @description that is a Hash", :vcr do
+      expect(event1.description).to be_a(Hash)
+    end
   end
 end

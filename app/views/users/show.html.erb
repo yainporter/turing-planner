@@ -19,7 +19,7 @@
         <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
           <!-- Nested Accordion-->
           <p class="mb-2 text-gray-500 dark:text-gray-400"></p>
-          <% event.description.links_and_text.each.with_index(1) do | link_and_text, sub_index| %>
+          <% event.description[:links_and_drive_id].each.with_index(1) do | link_and_text, sub_index| %>
             <div id="accordion-nested-collapse-<%= "#{index}-#{sub_index}" %>" data-accordion="collapse">
               <h2 id="accordion-nested-collapse-heading-<%= "#{index}-#{sub_index}" %>" >
                 <%= button_to "#accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", aria_expanded: "false", aria_controls: "accordion-nested-collapse-body-#{"#{index}-#{sub_index}"}", turbo: false } do %>
@@ -39,7 +39,7 @@
             </div>
           <% end %>
           <p class="text-gray-500 dark:text-gray-400">
-            <%= simple_format(event.description.formatted_text) %>
+            <%= simple_format(event.description[:formatted_text]) %>
           </p>
         </div>
       </div>
