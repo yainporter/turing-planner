@@ -6,7 +6,8 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}',
-    './node_modules/flowbite/**/*.js'
+    './node_modules/flowbite/**/*.js',
+    '/node_modules/preline/dist/*.js'
   ],
   theme: {
     extend: {
@@ -20,6 +21,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('preline/plugin')
   ]
 }
