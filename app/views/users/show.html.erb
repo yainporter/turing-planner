@@ -16,7 +16,7 @@
         <% end %>
       </h2>
       <div id="accordion-collapse-body-<%= index %>" class="hidden" aria-labelledby="accordion-collapse-heading-<%= index %>">
-        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+        <div class="p-5 border border-b-0 border-gray-200">
           <!-- Nested Accordion-->
           <p class="mb-2 text-gray-500 dark:text-gray-400"></p>
           <% event.description[:links_and_text].each.with_index(1) do | links_and_text, sub_index| %>
@@ -30,7 +30,7 @@
                 <% end %>
               </h2>
               <div id="accordion-nested-collapse-body-<%= "#{index}-#{sub_index}" %>" class="hidden" aria-labelledby="accordion-nested-collapse-heading-<%= "#{index}-#{sub_index}" %>">
-                <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                <div class="p-5 border border-b-0 border-gray-200">
                   <p class="mb-2 text-gray-500 dark:text-gray-400">
                     <%= link_to "LINK", links_and_text[:url], data: { turbo_method: :get } %>
                     <% if links_and_text[:url].include?("https://docs.google.com/presentation") %>

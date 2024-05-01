@@ -38,23 +38,19 @@ class GoogleSlidesService
   end
 
   def get_slide_thumbnail(thumbnail_id)
-    # attempts = 0
-    # max_retries = 5
-    # begin
+    retries = 0
+  
+    begin
       response = conn.get("/v1/presentations/#{@presentation_id}/pages/#{thumbnail_id}/thumbnail")
       response.body
-
-    # rescue Faraday::TooManyRequestsError
-    #   attempts += 1
-    #   if attempts <= max_retries
-    #     sleep(attempts + Random.rand(1000).in_milliseconds)  # Exponential backoff
-    #     retry
-    #   else
-    #     raise "Failed after #{max_retries} attempts."
-    #   end
-    # rescue Faraday::Error => e
-    #   # Handle other Faraday/HTTP errors
-    #   puts "HTTP request failed: #{e.message}"
-    # end
+    rescue Faraday::TooManyRequestsError => e
+      if retries <= max_retries
+        retries += 1
+        sleep 2 ** retries
+        retry
+      else
+        raise "Timeout: #{e.message}"
+      end
+    end
   end
 end
