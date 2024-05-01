@@ -1,9 +1,11 @@
-class GoogleCalendarFacade
+class GoogleApiFacade
   attr_reader :mod
 
-  def initialize(mod)
-    @service = GoogleCalendarService
-    @mod = mod
+  def initialize(hash)
+    @calendar_service = GoogleCalendarService
+    @mod = hash[:mod]
+    @access_token = hash[:access_token]
+    @refresh_token = hash[:refresh_token]
   end
 
   def create_calendar_events
@@ -12,10 +14,29 @@ class GoogleCalendarFacade
     end
   end
 
+  def find_thumbnail_url(presentation_id)
+    slides_service = set_google_slides(presentation_id)
+    presentation = slides_service.get_presentation
+    slides = presentation[:slides]
+    urls = slides.map do |slide|
+      slide_id = slide[:objectId]
+      slides_service.get_slide_thumbnail(slide_id)[:contentUrl]
+    end
+    urls
+  end
+
   private
 
+  def set_google_slides(presentation_id)
+    GoogleSlidesService.new({
+      access_token: @access_token,
+      presentation_id: presentation_id,
+      refresh_token: @refresh_token
+    })
+  end
+
   def service_data
-    @service.turing_calendar(calendar_id)
+    @calendar_service.turing_calendar(calendar_id)
   end
 
   def calendar_id
