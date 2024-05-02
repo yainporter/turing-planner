@@ -24,7 +24,6 @@ class GoogleSlidesService
   end
 
   def refresh_token
-
     oauth_conn.post("/token?client_id=#{Rails.application.credentials[:GOOGLE_CLIENT_ID]}&client_secret=#{Rails.application.credentials[:GOOGLE_CLIENT_SECRET]}&refresh_token=#{@refresh_token}&grant_type=refresh_token")
   end
 
@@ -33,7 +32,7 @@ class GoogleSlidesService
       response = conn.get("/v1/presentations/#{@presentation_id}")
       response.body
     rescue Faraday::UnauthorizedError => e
-      puts e.message
+      parse_error_message(e)
     end
   end
 
@@ -52,5 +51,11 @@ class GoogleSlidesService
         raise "Timeout: #{e.message}"
       end
     end
+  end
+
+  private
+
+  def parse_error_message(e)
+    JSON.parse(e.response_body, symbolize_names: true)[:error][:message]
   end
 end

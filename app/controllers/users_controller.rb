@@ -4,8 +4,8 @@ class UsersController < ApplicationController
 
 
   def show
-    @event_list = conn.read
-    @conn = redis_connection
+    @api_facade = api_facade
+    @event_list = api_facade.create_calendar_events
   end
 
   private

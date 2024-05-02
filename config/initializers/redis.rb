@@ -1,2 +1,2 @@
-redis_url = ENV.fetch("REDIS_CACHE_URL")
+redis_url = ENV["REDIS_CACHE_URL"]
 REDIS = Redis.new(url: redis_url)

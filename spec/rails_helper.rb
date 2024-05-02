@@ -62,4 +62,15 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  VCR.configure do |config|
+    config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+    config.hook_into :webmock
+    config.filter_sensitive_data('client_id') { Rails.application.credentials.GOOGLE_CLIENT_ID }
+    config.filter_sensitive_data('client_secret') { Rails.application.credentials.GOOGLE_CLIENT_SECRET }
+    config.filter_sensitive_data('api_key') { Rails.application.credentials.GOOGLE_API_KEY }
+    config.default_cassette_options = { re_record_interval: 7.days }
+    config.configure_rspec_metadata!
+    config.default_cassette_options = { record: :once }
+  end
 end

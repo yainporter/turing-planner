@@ -1,7 +1,6 @@
 class GoogleSlidesController < ApplicationController
   def show
-    @conn = redis_connection
-    @events 
+    @thumbnails = api_facade.find_thumbnail_url(params[:drive_id])
   end
 
   private

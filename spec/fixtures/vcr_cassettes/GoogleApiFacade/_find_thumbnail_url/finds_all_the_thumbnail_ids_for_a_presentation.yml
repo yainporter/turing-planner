@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://slides.googleapis.com/v1/presentations/1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.9.0
+      Authorization:
+      - Bearer ya29.a0Ad52N3_XTssX0q0K53xI8JgVEtndBsHn9i-a5l5VW1T-UBOiMd8FNG1oIfl-5XqBor1Ad-3DD250QfRpjthJWzWUW1x6TQeAs5Ah29VVi98aP3gwHRahwRPkvYkfFOLN6qwqN5lk7zwtSN-5oUdFjMT6n45swGRQDfNqaCgYKAScSARISFQHGX2MiNEtjUg72mTwW7TLlzFczlQ0171
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Www-Authenticate:
+      - Bearer realm="https://accounts.google.com/", error="invalid_token"
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 02 May 2024 18:19:07 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      X-L2-Request-Path:
+      - l2-managed-4
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "error": {
+            "code": 401,
+            "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+            "status": "UNAUTHENTICATED"
+          }
+        }
+  recorded_at: Thu, 02 May 2024 18:19:07 GMT
+recorded_with: VCR 6.2.0
