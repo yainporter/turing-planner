@@ -11,6 +11,7 @@ class EventsJob
         id: event.id,
         summary: event.summary,
         start: event.start,
+        description: event.description,
         index: index
       }
     end

@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   def show
     events = REDIS.get("events_for_#{date}")
-    require 'pry'; binding.pry
     @event_list = JSON.parse(events, symbolize_names: true)
   end
 
