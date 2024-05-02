@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe GoogleApiFacade do
+RSpec.describe GoogleCalendarFacade do
   let(:student_mod){ "Mod 1" }
   let(:google_calendar_facade){ GoogleApiFacade.new({mod: "Mod 1"}) }
 

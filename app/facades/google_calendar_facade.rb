@@ -1,4 +1,4 @@
-class GoogleApiFacade
+class GoogleCalendarFacade
   attr_reader :mod
 
   def initialize(hash)
