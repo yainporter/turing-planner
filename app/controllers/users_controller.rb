@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_thumbnail
+  before_action :events_list
 
 
   def show
-    @api_facade = api_facade
-    @event_list = api_facade.create_calendar_events
+    events = REDIS.get("events_for_#{date}")
+    require 'pry'; binding.pry
+    @event_list = JSON.parse(events, symbolize_names: true)
   end
 
   private
