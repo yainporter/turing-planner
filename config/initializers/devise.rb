@@ -317,7 +317,7 @@ Devise.setup do |config|
     Rails.application.credentials.dig(:GOOGLE_CLIENT_ID),
     Rails.application.credentials.dig(:GOOGLE_CLIENT_SECRET),
     {
-      scope: ["email", "calendar", "drive"]
+      scope: ["email", "drive"]
       # hd: ["turing.edu"]
     }
 end
