@@ -16,6 +16,4 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "users#show", as: :dashboard
   get "/google_slides", to: "google_slides#show", as: :google_slides
-  get "/redirect", to: "calendars#redirect"
-  get "/callback", to: "calendars#callback"
 end
