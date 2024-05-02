@@ -27,13 +27,17 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis"
 gem 'redis-rails'
+gem "sidekiq"
+gem "hiredis", "~> 0.6.0"
+gem "redis", ">= 3.2.0"
 
 ## HTTP Caching
 group :production do
   gem 'redis-rack-cache'
 end
+
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

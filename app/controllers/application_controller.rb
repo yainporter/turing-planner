@@ -13,5 +13,16 @@ class ApplicationController < ActionController::Base
   def event_list
     api_facade.create_calendar_events
   end
+
+  def load_thumbnail
+    if current_user
+        ThumbnailJob.perform_async(session[:credentials]["token"])
+    end
+  end
+
+  def redis_connection
+    conn = Hiredis::Connection.new
+    conn.connect("127.0.0.1", 6379)
+  end
 end
 # app/controllers/users/omniauth_callbacks_controller.rb:

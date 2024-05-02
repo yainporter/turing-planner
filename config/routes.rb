@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     sessions: 'users/sessions',
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "users#show", as: :dashboard
   get "/google_slides", to: "google_slides#show", as: :google_slides
+  mount Sidekiq::Web => "/sidekiq"
 end
