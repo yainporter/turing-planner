@@ -39,7 +39,7 @@ class GoogleSlidesService
 
   def get_slide_thumbnail(thumbnail_id)
     retries = 0
-  
+    max_retries = 6
     begin
       response = conn.get("/v1/presentations/#{@presentation_id}/pages/#{thumbnail_id}/thumbnail")
       response.body
