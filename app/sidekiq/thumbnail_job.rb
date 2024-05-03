@@ -3,16 +3,19 @@ class ThumbnailJob
   include HiredisConnection
 
   def perform(access_token)
-    calendar_facade = GoogleApiFacade.new({access_token: access_token})
-    event_list = calendar_facade.create_calendar_events
-    conn.write ["SET", "event_list", event_list]
-    conn.write ["GET", "event_list"]
-    event_list.each.with_index(1) do |event, index|
-      event.description[:links_and_text].each do |link_and_text|
-        if links_and_text[:url].include?("https://docs.google.com/presentation")
-          url =  calendar_facade.find_thumbnail_url(link_and_text[:drive_id])
-          conn.write ["SET", "#{event.id}-#{index}", url]
-          conn.write ["GET", "#{event.id}-#{index}"]
+    conn = HiredisConnection.conn
+    date = Time.now.strftime("%d/%m/%Y")
+    events = REDIS.get("events_for_#{date}")
+    event_list = JSON.parse(events, symbolize_names: true)
+    event_list.map do |event|
+      event[:description][:links_and_text].map do |link_and_text|
+        if link_and_text[:url].include?("https://docs.google.com/presentation")
+          slides_facade = GoogleSlidesFacade.new({access_token: access_token})
+          links = slides_facade.thumbnail_urls(link_and_text[:drive_id])
+          links = links.to_json
+          conn.write(["SET", "thumbnails_for_#{link_and_text[:drive_id]}", links ])
+          conn.write(["GET", "thumbnails_for_#{link_and_text[:drive_id]}"])
+          conn.read
         end
       end
     end

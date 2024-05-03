@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :events_list
-
 
   def show
     events = REDIS.get("events_for_#{date}")

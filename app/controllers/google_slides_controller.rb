@@ -1,12 +1,8 @@
 class GoogleSlidesController < ApplicationController
   def show
-    @thumbnails = api_facade.find_thumbnail_url(params[:drive_id])
+    urls = REDIS.get("thumbnails_for_#{params[:drive_id]}")
+    @thumbnails = JSON.parse(urls, symbolize_names: true)
   end
 
   private
-
-  def redis_connection
-    conn = Hiredis::Connection.new
-    conn.connect("127.0.0.1", 6379)
-  end
 end
