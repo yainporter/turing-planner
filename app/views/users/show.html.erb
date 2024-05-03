@@ -20,7 +20,6 @@
         <div class="p-5 border border-b-0 border-gray-200">
           <!-- Nested Accordion-->
           <p class="mb-2 text-gray-500 dark:text-gray-400"></p>
-          pry
           <% event[:description][:links_and_text].each.with_index(1) do | links_and_text, sub_index| %>
             <div id="accordion-nested-collapse-<%= "#{event[:index]}-#{sub_index}" %>" data-accordion="collapse">
               <h2 id="accordion-nested-collapse-heading-<%= "#{event[:index]}-#{sub_index}" %>" >

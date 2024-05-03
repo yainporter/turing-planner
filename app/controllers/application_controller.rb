@@ -1,27 +1,26 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   protect_from_forgery with: :exception
-  before_action :events_list
-  before_action :load_thumbnail
+  before_action :load_events_list
+  before_action :load_thumbnails
+  include DatabaseConnection
 
   def after_sign_in_path_for(resource)
     dashboard_path
   end
 
-  def events_list
-    if current_user
-      @events_list ||= EventsJob.perform_async(current_user[:mod])
+  def load_events_list
+    if current_user && events_list.nil?
+      EventsJob.perform_async(current_user[:mod])
     end
   end
 
-  def load_thumbnail
-    if current_user
-        @thumbnails ||= ThumbnailJob.perform_async(session[:credentials]["token"])
+  def load_thumbnails
+    if current_user && thumbnails.nil?
+      credentials = REDIS.get(session[:email])
+      credentials = JSON.parse(credentials, symbolize_names: true)
+      ThumbnailJob.perform_async(credentials[:token])
     end
-  end
-
-  def date
-    Time.now.strftime("%d/%m/%Y")
   end
 end
 # app/controllers/users/omniauth_callbacks_controller.rb:

@@ -4,11 +4,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    auth_hash = request.env['omniauth.auth']
-    session[:credentials] = auth_hash[:credentials]
     @user = User.from_omniauth(auth_hash)
-
     if @user.persisted?
+      store_session_info
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
       sign_in_and_redirect @user, event: :authentication
     else
@@ -22,8 +20,26 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   private
 
-  def store_session_info
+  def user_email
+    auth_hash[:info][:email]
+  end
 
+  def auth_hash
+    request.env['omniauth.auth']
+  end
+
+  def store_session_info
+    unless session[:email]
+      session[:email] = user_email
+
+      credentials = {
+      token: auth_hash[:credentials][:token],
+      refresh_token: auth_hash[:credentials][:refresh_token]
+    }
+      credentials = credentials.to_json
+      data = [user_email, credentials]
+      store_data(data)
+    end
   end
 
   # def client_options

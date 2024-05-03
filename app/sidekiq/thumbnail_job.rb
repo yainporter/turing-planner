@@ -1,23 +1,27 @@
 class ThumbnailJob
   include Sidekiq::Job
-  include HiredisConnection
+  include DatabaseConnection
 
   def perform(access_token)
-    conn = HiredisConnection.conn
-    date = Time.now.strftime("%d/%m/%Y")
-    events = REDIS.get("events_for_#{date}")
-    event_list = JSON.parse(events, symbolize_names: true)
-    event_list.map do |event|
+    events_list.map do |event|
       event[:description][:links_and_text].map do |link_and_text|
-        if link_and_text[:url].include?("https://docs.google.com/presentation")
+        if link_and_text[:url].include?("https://docs.google.com/presentation") && thumbnails_missing?(link_and_text[:drive_id])
           slides_facade = GoogleSlidesFacade.new({access_token: access_token})
           links = slides_facade.thumbnail_urls(link_and_text[:drive_id])
           links = links.to_json
-          conn.write(["SET", "thumbnails_for_#{link_and_text[:drive_id]}", links ])
-          conn.write(["GET", "thumbnails_for_#{link_and_text[:drive_id]}"])
-          conn.read
+
+          store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
         end
       end
+    end
+  end
+
+  def thumbnails_missing?(drive_id)
+    thumbnails = REDIS.get("thumbnails_for_#{drive_id}")
+    if thumbnails
+      false
+    else
+      true
     end
   end
 end
