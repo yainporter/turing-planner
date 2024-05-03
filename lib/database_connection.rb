@@ -25,8 +25,8 @@ module DatabaseConnection
     end
   end
 
-  def thumbnails
-    urls = REDIS.get("thumbnails_for_#{params[:drive_id]}")
+  def thumbnails(drive_id)
+    urls = REDIS.get("thumbnails_for_#{drive_id}")
     if urls
       JSON.parse(urls, symbolize_names: true)
     else

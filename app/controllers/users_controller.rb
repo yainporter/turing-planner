@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    redirect_to dashboard_path
+  end
+
   def show
     events = REDIS.get("events_for_#{date}")
     @event_list = JSON.parse(events, symbolize_names: true)

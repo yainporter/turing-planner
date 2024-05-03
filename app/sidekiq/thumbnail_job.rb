@@ -17,8 +17,7 @@ class ThumbnailJob
   end
 
   def thumbnails_missing?(drive_id)
-    thumbnails = REDIS.get("thumbnails_for_#{drive_id}")
-    if thumbnails
+    if thumbnails(drive_id)
       false
     else
       true

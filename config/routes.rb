@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/user' => "users#show", :as => :user_root
 
   get "/dashboard", to: "users#show", as: :dashboard
+  get "/loading", to: "users#index", as: :loading
   get "/google_slides", to: "google_slides#show", as: :google_slides
   mount Sidekiq::Web => "/sidekiq"
 end
