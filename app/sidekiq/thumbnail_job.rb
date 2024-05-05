@@ -11,10 +11,13 @@ class ThumbnailJob
           links = links.to_json
 
           store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
+          ActionCable.server.broadcast('notifications', { status: 'completed'})
         end
       end
     end
   end
+
+  private
 
   def thumbnails_missing?(drive_id)
     if thumbnails(drive_id)

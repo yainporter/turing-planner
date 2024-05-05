@@ -41,7 +41,6 @@ RSpec.describe "User Dashboard", type: :feature do
       click_on("08:30 Acountabilibuddy Check-In")
 
       expect(page).to have_content("Use this time to get to know your Accountabilibuddy. This person should be another resource for you to work through Turing and get help when needed.")
-
     end
   end
 end

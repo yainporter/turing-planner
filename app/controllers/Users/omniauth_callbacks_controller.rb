@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       store_session_info
       EventsJob.perform_async(@user[:mod])
       ThumbnailJob.perform_async(credentials[:token])
-      sleep 30.seconds
+      sleep 5.seconds
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
       sign_in_and_redirect @user, event: :authentication
     else
