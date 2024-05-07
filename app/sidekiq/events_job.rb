@@ -4,8 +4,9 @@ class EventsJob
 
   def perform(mod)
       calendar_facade = GoogleCalendarFacade.new({mod: mod})
-      event_list = calendar_facade.create_calendar_events
+      event_list = calendar_facade.filtered_calendar_events
       events = event_list.map.with_index(1) do |event, index|
+        require 'pry'; binding.pry
         {
           id: event.id,
           summary: event.summary,

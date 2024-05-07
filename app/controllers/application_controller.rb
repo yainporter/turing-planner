@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include DatabaseConnection
 
   def after_sign_in_path_for(resource)
-    loading_path
+    dashboard_path
   end
 
   def load_events_list

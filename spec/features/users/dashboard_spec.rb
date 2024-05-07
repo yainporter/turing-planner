@@ -1,28 +1,26 @@
 require "rails_helper"
 
+
 RSpec.describe "User Dashboard", type: :feature do
   before do
     Timecop.freeze(Time.local(2024, "Apr", 18))
 
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-      provider: 'google',
-      uid: '123456',
-      info: {
-        name: 'John Doe',
-        email: 'test@example.com'
-      },
-      credentials: {
-        token: "234lkfnsfk32"
-      }
-    })
-
-    visit new_user_session_path
-    click_on "Login with Google"
+    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
   end
 
   describe "dashboard" do
     it "displays a user's agenda for the day" do
+
+      get "/auth/google_oauth2/callback"
+      expect(response).to redirect_to(dashboard_path)
+      require 'pry'; binding.pry
+      visit dashboard_path
+      save_and_open_page
+      fill_in("Email", with: "tester@test.test")
+      fill_in("Password", with: "testing")
+      click_on("Log in")
+
       expect(page).to have_content("Schedule For the Day")
       expect(page).to have_content("08:30 Accountabilibuddy Check-In")
       expect(page).to have_content("09:00 🎥 Mocks and Stubs")

@@ -8,8 +8,14 @@ class GoogleCalendarFacade
 
   def create_calendar_events
     service_data[:items].map do | event_data |
-      Event.new(event_data)
+      if event_data[:start][:dateTime]
+          CalendarEvent.new(event_data)
+      end
     end
+  end
+
+  def filtered_calendar_events
+    create_calendar_events.compact
   end
 
   private

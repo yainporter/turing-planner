@@ -1,4 +1,4 @@
-class Event
+class CalendarEvent
   attr_reader :id,
               :start,
               :end,
@@ -41,40 +41,5 @@ class Event
       starting = Time.parse(@start)
       minutes = (ending - starting) / 60
       "#{minutes.to_i} minutes"
-  end
-
-  ### How do I test this?
-  def parse_description(description_string)
-    # Use Nokogiri to turn String into a structured format
-    doc = Nokogiri::HTML(description_string)
-
-    # Grab all of the text parsed, return only the text and join them into a big String with a newline
-    text_outside_links = doc.xpath('//text()').map(&:text).join("\n")
-
-    # Initialize an empty array to store links and their text
-    links_and_text = []
-
-    # Iterate through each link element
-    doc.css('a').each do |link|
-      # Extract the link URL, using key value pairs
-      url = link['href']
-
-      # Extract the text inside the link
-      text = link.text
-
-      # Add the link URL and text to the array
-      links_and_text << { url: url, text: text }
-    end
-
-    # Print the extracted links and their text
-    links_and_text.each do |link|
-      text_outside_links.gsub!(link[:text], '')
-    end
-    formatted_text = text_outside_links.strip
-
-    {
-      links_and_text: links_and_text,
-      formatted_text: formatted_text
-    }
   end
 end

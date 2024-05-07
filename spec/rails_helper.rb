@@ -6,6 +6,8 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'sidekiq/testing'
+require "omniauth"
+require "devise"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -50,6 +52,9 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Warden::Test::Helpers
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -57,6 +62,15 @@ RSpec.configure do |config|
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
+
+
+  # Redis testing?
+
+  # config.before(:each) do
+  #   mock_redis = MockRedis.new
+  #   allow(Redis).to receive(:new).and_return(mock_redis)
+  # end
+
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -77,6 +91,23 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+
+  # Warden for authentication testing
+
+  # Rack::Builder.new do
+  #   # use Rack::Session::Cookie, :secret => "replace this with some secret key"
+
+  #   config.before(:suite) do
+  #     Warden.test_mode!
+  #   end
+  #   config.include Warden::Test::Helpers
+    config.after :each do
+      Warden.test_reset!
+    end
+  # end
+
+
 
   VCR.configure do |config|
     config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'

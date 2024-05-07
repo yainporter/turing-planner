@@ -184,6 +184,7 @@ GEM
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
+    mock_redis (0.44.0)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -453,6 +454,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   launchy
+  mock_redis
   nokogiri
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
