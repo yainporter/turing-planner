@@ -14,7 +14,6 @@ RSpec.describe "User Dashboard", type: :feature do
 
       get "/auth/google_oauth2/callback"
       expect(response).to redirect_to(dashboard_path)
-      require 'pry'; binding.pry
       visit dashboard_path
       save_and_open_page
       fill_in("Email", with: "tester@test.test")

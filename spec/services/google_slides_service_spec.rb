@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe GoogleSlidesService do
-  let(:access_token) { "ya29.a0AXooCgvrlNrooTO8MAhpny5dXEy5lH5HtgBwgKgFXgCGiPA9WCkC_79mZWkoA3ZPM9g2OKXrQOh6dvdPLLKM6o6N6dGKlY-GcbEuxw5lSnKNNXdpiIk7LjXze7-v75lpFuTmWiwfQaK4uPro5zp-s-4cPE0ZEED3Z1B3aCgYKAcISARISFQHGX2MiQvizWb-V-2siacoQHcLpUg0171" }
+  let(:access_token) { "ya29.a0AXooCgsuIBk8MiqmY-nXtAwhVx8Ic2FH2xv31Gd6SSOlXpShXKTsb8zBGlu_TEkDsAI8Tm4SSe5ynzt5JBdmP0-vFN8DC_l1rMF1vo9uvXqWUBuBBhsQczF2glT47icILLLtrSViY4Z399VCJPZ1_N0y9dqc3j1RtAvLaCgYKAbsSARISFQHGX2Mi7GeOKPl0XrftPmC9X2Gtyw0171" }
   let(:presentation_id) { "1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc" }
   let(:thumbnail_id) {"ge63a4b4_1_0"}
   let(:google_slides) {GoogleSlidesService.new({access_token: access_token})}

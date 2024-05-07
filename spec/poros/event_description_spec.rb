@@ -31,7 +31,7 @@ RSpec.describe EventDescription do
 
   describe "#description_text" do
     it "formats the text from @description_data", :vcr do
-      expect(description.description_text).to be_a(String)
+      expect(description.formatted_text).to be_a(String)
     end
   end
 

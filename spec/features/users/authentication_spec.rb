@@ -12,7 +12,6 @@ RSpec.describe "Authentication Flow", type: :feature do
       auth_hash = Faker::Omniauth.google
       OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(Faker::Omniauth.google)
-      require 'pry'; binding.pry
       visit dashboard_path
       require 'pry'; binding.pry
       find(:css,'#google-login')

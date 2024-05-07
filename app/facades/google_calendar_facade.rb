@@ -6,6 +6,14 @@ class GoogleCalendarFacade
     @mod = hash[:mod]
   end
 
+
+
+  def filtered_calendar_events
+    create_calendar_events.compact
+  end
+
+  private
+
   def create_calendar_events
     service_data[:items].map do | event_data |
       if event_data[:start][:dateTime]
@@ -13,12 +21,6 @@ class GoogleCalendarFacade
       end
     end
   end
-
-  def filtered_calendar_events
-    create_calendar_events.compact
-  end
-
-  private
 
   def service_data
     @calendar_service.turing_calendar(calendar_id)

@@ -11,19 +11,10 @@ RSpec.describe GoogleCalendarFacade do
     end
   end
 
-  describe "create_calendar_events" do
-    it "creates an array of events from Service data based on a User's Mod", :vcr do
-      events = google_calendar_facade.create_calendar_events
-      events.each do | event |
-        expect(event).to be_a CalendarEvent
-      end
-    end
-  end
-
   describe "fltered_calendar_events" do
     it "removes calendar events without a description array", :vcr do
-      events = google_calendar_facade.create_calendar_events
-  require 'pry'; binding.pry
+      events = google_calendar_facade.filtered_calendar_events
+  pry
       events.each do | event |
         expect(event).to be_a CalendarEvent
         expect(event.description).to_not eq(nil)
