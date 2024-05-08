@@ -1,0 +1,27 @@
+<% event[:description][:links_and_text].select{|link_and_text| !link_and_text[:url].include?("https://docs.google.com/presentation") || !link_and_text[:url].include?("turing.edu")}.each.with_index(1) do | links_and_text, sub_index| %>
+  <div id="accordion-nested-collapse-<%= "#{event[:index]}-#{sub_index}" %>" data-accordion="collapse">
+    <h2 id="accordion-nested-collapse-heading-<%= "#{event[:index]}-#{sub_index}" %>" >
+      <%= button_to "#accordion-nested-collapse-body-#{"#{event[:index]}-#{sub_index}"}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", id: "#{"#{event[:index]}-#{sub_index}"}", data: { accordion_target: "#accordion-nested-collapse-body-#{"#{event[:index]}-#{sub_index}"}", aria_expanded: "false", aria_controls: "accordion-nested-collapse-body-#{"#{event[:index]}-#{sub_index}"}", turbo: false } do %>
+        <%= links_and_text[:text] %>
+        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"></path>
+        </svg>
+      <% end %>
+    </h2>
+    <div id="accordion-nested-collapse-body-<%= "#{event[:index]}-#{sub_index}" %>" class="hidden" aria-labelledby="accordion-nested-collapse-heading-<%= "#{event[:index]}-#{sub_index}" %>">
+      <div class="p-5 border border-b-0 border-gray-200">
+        <p class="mb-2 text-gray-500 dark:text-gray-400">
+          <%= link_to "LINK", links_and_text[:url], data: { turbo_method: :get } %>
+          <% if links_and_text[:url].include?("https://docs.google.com/presentation") %>
+            <p>
+              Slide show here
+            </p>
+              <%= turbo_frame_tag "google_slides#{links_and_text[:drive_id]}", src: google_slides_path(drive_id: links_and_text[:drive_id]), loading: "lazy" %>
+          <% elsif links_and_text[:url].include?("turing.edu/") %>
+            <iframe src="<%= links_and_text[:url] %>" width="600" height="400" frameborder="0" allowfullscreen></iframe>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

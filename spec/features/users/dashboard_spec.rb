@@ -26,14 +26,20 @@ RSpec.describe "User Dashboard", type: :feature do
   end
 
   # How would I test this?
-  describe "agenda drop down" do
-    it "collapses with information" do
-      expect(page).to have_no_content("LINK")
-      expect(page).to have_no_content("SLIDES")
+  describe "slides carousel" do
+    it "displays images from Google Slides" do
 
-      click_on("09:00 🎥 Objects, Classes and Instance")
+      within("#accordion-nested-collapse-1-2") do
+        expect(page).to have_content("Slide show here")
+        expect(page).to_not have_content("https://lh7-us.googleusercontent.com/docsdf/AFQj2d71GCS-SigTLrD5WLW7habNAWcqOYShERcwTzSECExmbl0ayn_fj4JGCcVnn9EhJDy_pY7LpZjcEIjw0UFv9sy-ykhhBft3WLinl1zGxXa6sTGSjfsmF9bUZAePO03soAbup8Vw4bq0IBiI_Mb3cKK0sc-cYc3ym0jHH2LQNnKLHRRs=s1600")
+        click_button("Slides")
+        require 'pry'; binding.pry
+        expect(page).to_not have_content("https://lh7-us.googleusercontent.com/docsdf/AFQj2d71GCS-SigTLrD5WLW7habNAWcqOYShERcwTzSECExmbl0ayn_fj4JGCcVnn9EhJDy_pY7LpZjcEIjw0UFv9sy-ykhhBft3WLinl1zGxXa6sTGSjfsmF9bUZAePO03soAbup8Vw4bq0IBiI_Mb3cKK0sc-cYc3ym0jHH2LQNnKLHRRs=s1600")
+      end
 
-      save_and_open_page
+      page.find("#accordion-nested-collapse-heading-1-2").click
+      click_button("09:00 🎥 Objects, Classes and Instance")
+
       expect(page).to have_content("LINK")
       expect(page).to have_content("SLIDES")
     end
