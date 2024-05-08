@@ -52,9 +52,8 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
-  config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :feature
-  config.include Warden::Test::Helpers
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -102,9 +101,9 @@ RSpec.configure do |config|
   #     Warden.test_mode!
   #   end
   #   config.include Warden::Test::Helpers
-    config.after :each do
-      Warden.test_reset!
-    end
+    # config.after :each do
+    #   Warden.test_reset!
+    # end
   # end
 
 

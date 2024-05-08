@@ -14,7 +14,6 @@ RSpec.describe GoogleCalendarFacade do
   describe "fltered_calendar_events" do
     it "removes calendar events without a description array", :vcr do
       events = google_calendar_facade.filtered_calendar_events
-  pry
       events.each do | event |
         expect(event).to be_a CalendarEvent
         expect(event.description).to_not eq(nil)
