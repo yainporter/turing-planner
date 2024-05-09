@@ -1,4 +1,5 @@
 class GoogleService
+  attr_reader :refresh_token
   def initialize(refresh_token)
     @refresh_token = refresh_token
   end

@@ -2,8 +2,13 @@ class EventsJob
   include Sidekiq::Job
   include DatabaseConnection
 
-  def perform(mod)
-      calendar_facade = GoogleCalendarFacade.new({mod: mod})
+  def perform(mod, days_in_advance = nil)
+      calendar_facade = if days_in_advance
+                          GoogleCalendarFacade.new(mod, days_in_advance)
+                        else
+                          GoogleCalendarFacade.new(mod)
+                        end
+
       event_list = calendar_facade.filtered_calendar_events
       events = event_list.map.with_index(1) do |event, index|
         {

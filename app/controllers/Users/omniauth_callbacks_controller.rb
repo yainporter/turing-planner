@@ -7,8 +7,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(auth_hash)
     if @user.persisted?
       store_session_info
-      EventsJob.perform_async(@user[:mod])
-      ThumbnailJob.perform_async(credentials[:token])
       sleep 5.seconds
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
 
