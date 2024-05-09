@@ -4,7 +4,7 @@ class ThumbnailJob
 
   def perform(access_token)
     events_list.map do |event|
-      event[:description][:links_and_text].map do |link_and_text|
+      event[:links_and_text].map do |link_and_text|
         if link_and_text[:url].include?("https://docs.google.com/presentation") && thumbnails_missing?(link_and_text[:drive_id])
           slides_facade = GoogleSlidesFacade.new({access_token: access_token})
           links = slides_facade.thumbnail_urls(link_and_text[:drive_id])

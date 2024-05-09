@@ -4,8 +4,10 @@ RSpec.describe ZoomInfo do
   before do
     Timecop.freeze(Time.local(2024, "Apr", 18))
   end
+
   describe "initialize" do
-    let(:service_data){ GoogleCalendarService.mod1_calendar }
+    let(:calendar_service) {GoogleCalendarService.new}
+    let(:service_data){ calendar_service.mod1_calendar }
     let (:zoom_data){service_data[:items].second[:conferenceData]}
 
     it "initializes correctly", :vcr do

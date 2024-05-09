@@ -19,15 +19,19 @@
       <div id="accordion-collapse-body-<%= event[:index] %>" class="hidden" aria-labelledby="accordion-collapse-heading-<%= event[:index] %>">
         <div class="p-5 border border-b-0 border-gray-200">
           <!-- Nested Accordion-->
-          <% if event[:description][:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")} %>
+          <% if event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")} %>
             <%= render partial: "nested_accordion", locals: {
-              event_description_info: event[:description][:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
+              event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
+              event_index: event[:index]
+            } %>
+          <% else %>
+            <%= render partial: "nested_accordion", locals: {
+              event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
               event_index: event[:index]
             } %>
           <% end %>
-
           <p class="text-gray-500 dark:text-gray-400">
-            <%= simple_format(event[:description][:formatted_text]) %>
+            <%= simple_format(event[:formatted_text]) %>
           </p>
         </div>
       </div>

@@ -10,7 +10,8 @@ class EventsJob
           id: event.id,
           summary: event.summary,
           start: event.start,
-          description: event.description,
+          links_and_text: event.links_and_text,
+          formatted_text: event.formatted_text,
           index: index
         }
       end

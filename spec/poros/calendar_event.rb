@@ -4,8 +4,8 @@ RSpec.describe CalendarEvent do
   before do
     Timecop.freeze(Time.local(2024, "Apr", 18))
   end
-
-  let(:data){GoogleCalendarService.mod1_calendar}
+  let(:calendar_service) {GoogleCalendarService.new}
+  let(:data){calendar_service.mod1_calendar}
   let(:event1){CalendarEvent.new(data[:items].first)}
 
   describe "intialization" do

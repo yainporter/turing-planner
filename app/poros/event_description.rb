@@ -1,11 +1,15 @@
 class EventDescription
   def initialize(description_data)
-    @description_data = Nokogiri::HTML(description_data)
+    @description_data = description_data
+  end
+
+  def nokigiri
+    Nokogiri::HTML(@description_data)
   end
 
   def links_and_text
     links_and_text = []
-    @description_data.css('a').each do |link|
+    nokigiri.css('a').each do |link|
       # Extract the link URL, using key value pairs
       url = link['href']
 
@@ -19,7 +23,7 @@ class EventDescription
   end
 
   def formatted_text
-    text_outside_links = @description_data.xpath('//text()').map(&:text).join("\n")
+    text_outside_links = nokigiri.xpath('//text()').map(&:text).join("\n")
     links_and_text.each do |link|
       text_outside_links.gsub!(link[:text], '')
     end
@@ -31,4 +35,3 @@ class EventDescription
     url_parts[5]
   end
 end
-

@@ -5,7 +5,9 @@ RSpec.describe EventDescription do
     Timecop.freeze(Time.local(2024, "Apr", 18))
   end
 
-  let(:service_data){ GoogleCalendarService.mod1_calendar }
+  let(:calendar_service) {GoogleCalendarService.new}
+
+  let(:service_data){ calendar_service.mod1_calendar }
   let (:event_description_data){service_data[:items].first[:description]}
   let (:description){ EventDescription.new(event_description_data) }
 

@@ -2,11 +2,9 @@ class GoogleCalendarFacade
   attr_reader :mod
 
   def initialize(hash)
-    @calendar_service = GoogleCalendarService
+    @calendar_service = hash[:days_in_advance] ? GoogleCalendarService.new(hash[:days_in_advance]) : GoogleCalendarService.new
     @mod = hash[:mod]
   end
-
-
 
   def filtered_calendar_events
     create_calendar_events.compact

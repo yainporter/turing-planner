@@ -5,7 +5,7 @@ class CalendarEvent
               :time_zone,
               :summary,
               :html_link,
-              :description,
+              :event_description,
               :conference_data,
               :duration
 
@@ -16,20 +16,20 @@ class CalendarEvent
     @time_zone = data_hash[:start][:timeZone]
     @summary = data_hash[:summary]
     @html_link = data_hash[:htmlLink]
-    @description = event_descriptions(data_hash[:description])
+    @event_description = EventDescription.new(data_hash[:description])
     @duration = @start && @end ? set_duration : nil
     @conference_data = data_hash[:conferenceData] ? ZoomInfo.new(data_hash[:conferenceData]) : nil
   end
 
-  private
-
-  def event_descriptions(description)
-    event_descriptions = EventDescription.new(description)
-    {
-      links_and_text: event_descriptions.links_and_text,
-      formatted_text: event_descriptions.formatted_text
-    }
+  def links_and_text
+    @event_description.links_and_text
   end
+
+  def formatted_text
+    @event_description.formatted_text
+  end
+
+  private
 
   def format_time(time)
     datetime = DateTime.parse(time)

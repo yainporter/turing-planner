@@ -8,9 +8,11 @@ RSpec.describe GoogleCalendarService do
   after do
     Timecop.return
   end
+
+  let(:calendar_service) {GoogleCalendarService.new}
   describe ".conn" do
     it "makes a Faraday connection to the Google Calendar API", :vcr do
-      connection = GoogleCalendarService.conn
+      connection = calendar_service.conn
       param_keys = ["key", "timeMin", "timeMax", "singleEvents", "orderBy"]
 
 
@@ -23,7 +25,7 @@ RSpec.describe GoogleCalendarService do
 
   describe ".mod1_calendar" do
     it "returns the parsed json body for the Mod 1 Calendar", :vcr do
-      mod1_calendar = GoogleCalendarService.mod1_calendar
+      mod1_calendar = calendar_service.mod1_calendar
       calendar_keys = [
                       :kind,
                       :etag,
@@ -43,7 +45,7 @@ RSpec.describe GoogleCalendarService do
 
   describe ".mod2_calendar" do
     it "returns the parsed json body for the Mod 2 Calendar", :vcr do
-      mod2_calendar = GoogleCalendarService.mod2_calendar
+      mod2_calendar = calendar_service.mod2_calendar
       calendar_keys = [
                       :kind,
                       :etag,
@@ -64,7 +66,7 @@ RSpec.describe GoogleCalendarService do
 
   describe ".mod3_calendar" do
     it "returns the parsed json body for the Mod 3 Calendar", :vcr do
-      mod3_calendar = GoogleCalendarService.mod3_calendar
+      mod3_calendar = calendar_service.mod3_calendar
       calendar_keys = [
                       :kind,
                       :etag,
@@ -85,7 +87,7 @@ RSpec.describe GoogleCalendarService do
 
   describe ".mod4_calendar" do
     it "returns the parsed json body for the Mod 4 Calendar", :vcr do
-      mod4_calendar = GoogleCalendarService.mod4_calendar
+      mod4_calendar = calendar_service.mod4_calendar
       calendar_keys = [
                       :kind,
                       :etag,
@@ -106,7 +108,7 @@ RSpec.describe GoogleCalendarService do
 
   describe ".community_calendar" do
     it "returns the parsed json body for the Mod 1 Calendar", :vcr do
-      community_calendar = GoogleCalendarService.community_calendar
+      community_calendar = calendar_service.community_calendar
       calendar_keys = [
                       :kind,
                       :etag,
