@@ -5,6 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def google_oauth2
     @user = User.from_omniauth(auth_hash)
+    require 'pry'; binding.pry
     if @user.persisted?
       store_session_info
       sleep 5.seconds

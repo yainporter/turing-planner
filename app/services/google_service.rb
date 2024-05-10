@@ -1,22 +1,40 @@
 class GoogleService
-  attr_reader :refresh_token
   def initialize(refresh_token)
+    # @payload = {
+    #   "client_id": Rails.application.credentials.dig(:GOOGLE_CLIENT_ID),
+    #   "client_secret": Rails.application.credentials.dig( :GOOGLE_CLIENT_SECRET),
+    #   "refresh_token": refresh_token,
+    #   "grant_type": "refresh_token"
+    # }
     @refresh_token = refresh_token
   end
 
   def conn
     Faraday.new(url: 'https://oauth2.googleapis.com') do |faraday|
-      faraday.body["client_id"] = Rails.application.credentials.dig(:GOOGLE_API_KEY)
-      faraday.body["client_secret"] = Rails.application.credentials.dig(:GOOGLE_API_KEY)
-      faraday.body["refresh_token"] = refresh_token
-      faraday.body["grant_type"] = "refresh_token"
-      faraday.request :json
+      faraday.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       faraday.response :json, parser_options: { symbolize_names: true }
       faraday.response :raise_error
+      faraday.params = {
+        "client_id": Rails.application.credentials.dig(:GOOGLE_CLIENT_ID),
+        "client_secret": Rails.application.credentials.dig( :GOOGLE_CLIENT_SECRET),
+        "refresh_token": @refresh_token,
+        "grant_type": "refresh_token"
+      }
     end
   end
 
-  def refresh_token
-    conn.post("/token")
+  def refresh_access_token
+    begin
+      conn.post do |req|
+        req.url("/token")
+      end
+    rescue Faraday::BadRequestError => e
+      require 'pry'; binding.pry
+      e.message
+    end
+  end
+
+  def encode_payload
+    URI.encode_www_form(@payload)
   end
 end
