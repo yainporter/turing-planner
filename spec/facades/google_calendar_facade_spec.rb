@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe GoogleCalendarFacade do
   let(:student_mod){ "Mod 1" }
-  let(:google_calendar_facade){ GoogleCalendarFacade.new({mod: "Mod 1"}) }
+  let(:google_calendar_facade){ GoogleCalendarFacade.new("Mod 1") }
 
   describe "initialize" do
     it "holds a User's mod", :vcr do
@@ -16,7 +16,7 @@ RSpec.describe GoogleCalendarFacade do
       events = google_calendar_facade.filtered_calendar_events
       events.each do | event |
         expect(event).to be_a CalendarEvent
-        expect(event.description).to_not eq(nil)
+        expect(event.event_description).to_not eq(nil)
       end
     end
   end
