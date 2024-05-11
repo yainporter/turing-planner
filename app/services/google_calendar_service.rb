@@ -25,28 +25,28 @@ class GoogleCalendarService
     response.body
   end
 
-  def mod1_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_59k8msrrc2ddhcv787vubvp0s4@group.calendar.google.com/events?")
-    response.body
-  end
+  # def mod1_calendar
+  #   response = conn.get("/calendar/v3/calendars/casimircreative.com_59k8msrrc2ddhcv787vubvp0s4@group.calendar.google.com/events?")
+  #   response.body
+  # end
 
-  def mod2_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_rps2hg1nfqjih4rcl3gl6s4lpk@group.calendar.google.com/events?")
-    response.body
-  end
+  # def mod2_calendar
+  #   response = conn.get("/calendar/v3/calendars/casimircreative.com_rps2hg1nfqjih4rcl3gl6s4lpk@group.calendar.google.com/events?")
+  #   response.body
+  # end
 
-  def mod3_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_e9k9b6n7bok174ilmqbfdr0sc4@group.calendar.google.com/events?")
-    response.body
-  end
+  # def mod3_calendar
+  #   response = conn.get("/calendar/v3/calendars/casimircreative.com_e9k9b6n7bok174ilmqbfdr0sc4@group.calendar.google.com/events?")
+  #   response.body
+  # end
 
-  def mod4_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_c1s3vspg5v09vh5cnnh88dn2nc@group.calendar.google.com/events?")
-    response.body
-  end
+  # def mod4_calendar
+  #   response = conn.get("/calendar/v3/calendars/casimircreative.com_c1s3vspg5v09vh5cnnh88dn2nc@group.calendar.google.com/events?")
+  #   response.body
+  # end
 
-  def community_calendar
-    response = conn.get("/calendar/v3/calendars/casimircreative.com_ronr9dk92ndvlhsk03kf8jd2ro@group.calendar.google.com/events?")
-    response.body
-  end
+  # def community_calendar
+  #   response = conn.get("/calendar/v3/calendars/casimircreative.com_ronr9dk92ndvlhsk03kf8jd2ro@group.calendar.google.com/events?")
+  #   response.body
+  # end
 end

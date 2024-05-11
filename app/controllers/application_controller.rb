@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   def load_events_list
     if current_user && events_list.nil?
-      EventsJob.perform_async(current_user[:mod])
-      EventsJob.perform_async(current_user[:mod], 1)
+      EventsTodayJob.perform_async
+      # EventsJob.perform_async
     end
   end
 
