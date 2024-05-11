@@ -1,19 +1,18 @@
 class GoogleCalendarFacade
-  attr_reader :all_calendars
+  attr_reader :all_calendar_events
 
   def initialize(days_in_advance = nil)
     @calendar_service = days_in_advance ? GoogleCalendarService.new(days_in_advance) : GoogleCalendarService.new
+    @all_calendar_events = Hash.new
   end
 
   def create_all_calendar_events
-    calendar_events = Hash.new
-
     calendar_ids.map do |mod, calendar_id|
-      calendar_events[mod] = create_calendar_events(calendar_id).compact
+      @all_calendar_events[mod] = create_calendar_events(calendar_id).compact
       # Compact is needed to get rid of nil events in the array because of the if statement
     end
 
-    calendar_events
+    @all_calendar_events
   end
 
   private
