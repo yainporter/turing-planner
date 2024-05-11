@@ -1,4 +1,4 @@
-class GoogleService
+class GoogleOAuthService
   def initialize(refresh_token)
     @payload = {
       "client_id": Rails.application.credentials.dig(:GOOGLE_CLIENT_ID),

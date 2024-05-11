@@ -2,7 +2,6 @@ class GoogleSlidesService
 
   def initialize(data)
     @access_token = data[:access_token]
-    @refresh_token = data[:refresh_token]
   end
 
   def conn
