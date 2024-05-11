@@ -2,8 +2,8 @@ class ThumbnailJob
   include Sidekiq::Job
   include DatabaseConnection
 
-  def perform(access_token)
-    events_list.map do |event|
+  def perform(access_token, mod)
+    events_list(mod).map do |event|
       event[:links_and_text].map do |link_and_text|
         if link_and_text[:url].include?("https://docs.google.com/presentation") && thumbnails_missing?(link_and_text[:drive_id])
           slides_facade = GoogleSlidesFacade.new({access_token: access_token})

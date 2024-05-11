@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_events_list
-    if current_user && events_list.nil?
+    if current_user && events_list(current_user[:mod]).nil?
       EventsTodayJob.perform_async
       # EventsJob.perform_async
     end
@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_thumbnails
-    if current_user && events_list != nil
-        ThumbnailJob.perform_async(credentials[:token])
+    if current_user && events_list(current_user[:mod]) != nil
+      ThumbnailJob.perform_async(credentials[:token], current_user[:mod])
     end
   end
 end

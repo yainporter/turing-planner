@@ -14,7 +14,6 @@ RSpec.describe GoogleCalendarFacade do
       calendar_events = google_calendar_facade.create_all_calendar_events
 
       expect(calendar_events).to be_a(Hash)
-      require 'pry'; binding.pry
       calendar_event_keys = [:"Community Calendar", :"Mod 1", :"Mod 2", :"Mod 3", :"Mod 4"]
 
       expect(calendar_events.keys).to eq(calendar_event_keys)

@@ -16,8 +16,8 @@ module DatabaseConnection
     conn.read
   end
 
-  def events_list
-    events = REDIS.get("events_for_#{date}")
+  def events_list(mod)
+    events = REDIS.get("events_for_#{mod}_#{date}")
     if events
       JSON.parse(events, symbolize_names: true)
     else
