@@ -1,5 +1,5 @@
 # Turing Planner
-This is a side project I am experimenting with in order to grow my skills. The idea came to me to create an all in one dashboard for students of my bootcamp, Turing School of Software and Design, in order to keep track of our daily activities and lessons.
+This is a side project I am experimenting with in order to grow my skills using Ruby and Rails. The idea came to me to create an all in one dashboard for students of my bootcamp, Turing School of Software and Design, in order to keep track of our daily activities and lessons.
 
 Skills and exposure:
 - Google Slides and Calendar API using the Google Cloud Platform
