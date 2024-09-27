@@ -41,3 +41,4 @@
 
 /.dockerignore
 /app/node_modules
+.entrypoint.sh
