@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: turing_production
-  username: turing
-  password: <%= ENV["TURING_DATABASE_PASSWORD"] %>
+  database: turing_planner_production
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: turing_planner_db

@@ -1,2 +1,8 @@
-redis_url = ENV["REDIS_CACHE_URL"]
-REDIS = Redis.new(url: redis_url)
+require 'redis'
+host = ENV['REDIS_HOST'] || 'localhost' # Fallback to localhost if not set
+
+$redis = Redis.new(
+  host: host,
+  port: 6379,
+  password: ENV['REDIS_PASSWORD'] # Include this if required
+)

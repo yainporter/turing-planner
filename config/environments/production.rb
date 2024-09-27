@@ -28,7 +28,8 @@ Rails.application.configure do
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-
+  config.assets.digest = true
+  config.serve_static_assets = true
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
@@ -36,8 +37,15 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
   config.action_dispatch.rack_cache = {
-    metastore: "redis://localhost:6379/1/metastore",
-    entitystore: "redis://localhost:6379/1/entitystore"
+    metastore: "#{ENV.fetch('REDIS_CACHE_URL')}/metastore",
+    entitystore: "#{ENV.fetch('REDIS_CACHE_URL')}/entitystore"
+  }
+
+  # This operation configures Redis as the cache store, use Rails.cache... to perform Redis actions
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch("REDIS_CACHE_URL") { 'redis://localhost:6379/0' },
+    password: ENV["REDIS_PASSWORD"],
+    namespace: 'cache'
   }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
@@ -67,17 +75,6 @@ Rails.application.configure do
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
-
-  # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
-  config.cache_store = :redis_cache_store, {
-    host: "localhost",
-    port: 6379,
-    db: 0,
-    namespace: "session"
-  }, {
-    expires_in: 90.minutes
-  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
