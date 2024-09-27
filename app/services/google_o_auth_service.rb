@@ -1,8 +1,8 @@
 class GoogleOAuthService
   def initialize(refresh_token)
     @payload = {
-      "client_id": Rails.application.credentials.dig(:GOOGLE_CLIENT_ID),
-      "client_secret": Rails.application.credentials.dig( :GOOGLE_CLIENT_SECRET),
+      "client_id": ENV.FETCH["GOOGLE_CLIENT_ID"],
+      "client_secret": ENV.FETCH["GOOGLE_CLIENT_SECRET"],
       "refresh_token": refresh_token,
       "grant_type": "refresh_token"
     }

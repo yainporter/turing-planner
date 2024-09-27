@@ -5,7 +5,7 @@ class GoogleCalendarService
 
   def conn
     Faraday.new(url: 'https://www.googleapis.com') do |faraday|
-      faraday.params["key"] = Rails.application.credentials.dig(:GOOGLE_API_KEY)
+      faraday.params["key"] = ENV.fetch["GOOGLE_API_KEY"]
       # faraday.params["timeMin"] = (Time.now + @days_in_advance.day).strftime('%Y-%m-%dT05:00:00%z')
       faraday.params["timeMin"] = (Time.now - 17.days).strftime('%Y-%m-%dT05:00:00%z')
       # faraday.params["timeMax"] = (Time.now + @days_in_advance.day).strftime('%Y-%m-%dT23:00:00%z')
