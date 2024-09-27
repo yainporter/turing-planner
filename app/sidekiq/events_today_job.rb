@@ -4,6 +4,7 @@ class EventsTodayJob
 
   def perform
     events = Hash.new
+    db_connection = DatabaseConnection.new
     all_calendar_events.each do |mod, calendar_events|
       events[mod] = calendar_events.map.with_index(1) do |event, index|
           {
@@ -16,7 +17,7 @@ class EventsTodayJob
           }
       end
     end
-    store_info(events)
+    DatabaseConnection.store_info(events)
   end
 
   def all_calendar_events
@@ -26,7 +27,7 @@ class EventsTodayJob
 
   def store_info(events_hash)
     events_hash.each do |mod, calendar_events|
-      store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
+      DatabaseConnection.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
     end
   end
 end

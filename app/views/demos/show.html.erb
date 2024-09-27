@@ -1,0 +1,42 @@
+<div class="container mx-auto">
+  <div class="text-center pt-6">
+    <h1 class="text-5xl">Schedule For the Day</h1>
+  </div>
+  <% if @event_list %>
+    <div id="accordion-nested-parent" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+      <% @event_list.each do |event| %>
+        <h2 id="accordion-collapse-heading-<%= event[:index] %>">
+          <%= button_to "#accordion-collapse-body-#{event[:index]}", method: :get, class: "flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3", data: { accordion_target: "#accordion-collapse-body-#{event[:index]}", aria_expanded: "true", aria_controls: "accordion-collapse-body-#{event[:index]}", turbo: false } do %>
+            <div class="grid-rows-4">
+              <%= event[:start] %>
+              <%= event[:summary] %>
+              <%= event[:duration] %>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"></path>
+              </svg>
+            </div>
+          <% end %>
+        </h2>
+        <div id="accordion-collapse-body-<%= event[:index] %>" class="hidden" aria-labelledby="accordion-collapse-heading-<%= event[:index] %>">
+          <div class="p-5 border border-b-0 border-gray-200">
+            <!-- Nested Accordion-->
+            <% if event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")} %>
+              <%= render partial: "nested_accordion", locals: {
+                event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
+                event_index: event[:index]
+              } %>
+            <% else %>
+              <%= render partial: "nested_accordion", locals: {
+                event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
+                event_index: event[:index]
+              } %>
+            <% end %>
+            <p class="text-gray-500 dark:text-gray-400">
+              <%= simple_format(event[:formatted_text]) %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

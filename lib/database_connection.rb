@@ -1,22 +1,12 @@
 module DatabaseConnection
-  def hiredis_conn
-    conn ||= Hiredis::Connection.new
-    conn.connect("127.0.0.1", 6379)
-    conn
+  def self.store_data(array)
+    $hiredis.write(["SET", array.first, array.last])
+    $hiredis.write(["GET", array.first])
+    $hiredis.read
   end
 
-  def date
-    Time.now.strftime("%d/%m/%Y")
-  end
-
-  def store_data(array)
-    conn = hiredis_conn
-    conn.write(["SET", array.first, array.last])
-    conn.write(["GET", array.first])
-    conn.read
-  end
-
-  def events_list(mod)
+  def self.events_list(mod)
+    date = Time.now.strftime("%d/%m/%Y")
     events = REDIS.get("events_for_#{mod}_#{date}")
     if events
       JSON.parse(events, symbolize_names: true)
@@ -25,7 +15,7 @@ module DatabaseConnection
     end
   end
 
-  def thumbnails(drive_id)
+  def self.thumbnails(drive_id)
     urls = REDIS.get("thumbnails_for_#{drive_id}")
     if urls
       JSON.parse(urls, symbolize_names: true)

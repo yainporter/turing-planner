@@ -10,7 +10,7 @@ class ThumbnailJob
           links = slides_facade.thumbnail_urls(link_and_text[:drive_id])
           links = links.to_json
 
-          store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
+          DatabaseConnection.store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
           ActionCable.server.broadcast('notifications', { status: 'completed'})
         end
       end

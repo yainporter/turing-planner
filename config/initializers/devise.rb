@@ -244,7 +244,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -300,7 +300,7 @@ Devise.setup do |config|
   # When using Devise with Hotwire/Turbo, the http status for error responses
   # and some redirects must match the following. The default in Devise for existing
   # apps is `200 OK` and `302 Found` respectively, but new apps are generated with
-  # these new defaults that match Hotwire/Turbo behavior.
+  # these new defaults that match Hotwire/Turbo sbehavior.
   # Note: These might become the new default in future versions of Devise.
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
@@ -314,10 +314,12 @@ Devise.setup do |config|
   ### omniauth-google-oauth2 gem setup
 
   config.omniauth :google_oauth2,
-    ENV.fetch["GOOGLE_CLIENT_ID"],
-    ENV.fetch["GOOGLE_CLIENT_SECRET"],
+    ENV["GOOGLE_CLIENT_ID"],
+    ENV["GOOGLE_CLIENT_SECRET"],
     {
-      scope: ["email", "drive"]
+      scope: ["email", "drive"],
+      access_type: "offline",
+      prompt: "consent"
       # hd: ["turing.edu"]
     }
 end

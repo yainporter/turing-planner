@@ -5,6 +5,7 @@ RUN apt-get update -qq && apt-get install -y \
   zsh \
   curl \
   nodejs \
+  nano \
   postgresql-client \
   build-essential \
   libpq-dev \

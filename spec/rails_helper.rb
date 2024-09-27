@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'sidekiq/testing'
 require "omniauth"
 require "devise"
+require "redis"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -106,7 +107,10 @@ RSpec.configure do |config|
     # end
   # end
 
-
+  config.before(:each) do
+    # Clear the Redis database before each test (optional)
+    $redis.flushdb
+  end
 
   VCR.configure do |config|
     config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'

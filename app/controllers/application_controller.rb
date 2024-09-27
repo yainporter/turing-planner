@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
       ThumbnailJob.perform_async(credentials[:token], current_user[:mod])
     end
   end
+
+  def redis_connection
+    DatabaseConnection.new
+  end
 end

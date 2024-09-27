@@ -40,7 +40,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }
       credentials = credentials.to_json
       data = [user_email, credentials]
-      store_data(data)
+      DatabaseConnection.store_data(data)
     end
   end
 end

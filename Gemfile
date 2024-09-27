@@ -33,7 +33,6 @@ gem 'mock_redis'
 gem "sidekiq"
 gem "hiredis", "~> 0.6.0"
 gem "redis", ">= 3.2.0"
-gem "dotenv-rails"
 
 ## HTTP Caching
 group :production do
@@ -80,9 +79,7 @@ group :development, :test do
   gem "webmock"
   gem "vcr"
   gem "timecop"
-end
-
-group :test do
+  gem "dotenv-rails"
   gem 'rspec-sidekiq'
 end
 

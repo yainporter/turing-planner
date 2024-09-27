@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "/dashboard", to: "users#show", as: :dashboard
   get "/loading", to: "users#index", as: :loading
   get "/google_slides", to: "google_slides#show", as: :google_slides
+  get "/demo/:mod", to: "demo#show", as: :demo
+
   mount Sidekiq::Web => "/sidekiq"
-  mount ActionCable.server => '/cable'
+  # mount ActionCable.server => '/cable'
 end
