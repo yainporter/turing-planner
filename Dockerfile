@@ -11,7 +11,6 @@ RUN apt-get update -qq && apt-get install -y \
   libpq-dev \
   git
 
-
 # Set the working directory
 WORKDIR /app
 # Install Ruby gems

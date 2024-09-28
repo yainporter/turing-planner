@@ -21,12 +21,12 @@
           <div class="p-5 border border-b-0 border-gray-200">
             <!-- Nested Accordion-->
             <% if event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")} %>
-              <%= render partial: "nested_accordion", locals: {
+              <%= render partial: "users/nested_accordion", locals: {
                 event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
                 event_index: event[:index]
               } %>
             <% else %>
-              <%= render partial: "nested_accordion", locals: {
+              <%= render partial: "users/nested_accordion", locals: {
                 event_description_info: event[:links_and_text].select{|link_and_text| link_and_text[:url].include?("https://docs.google.com/presentation") || link_and_text[:url].include?("turing.edu")},
                 event_index: event[:index]
               } %>

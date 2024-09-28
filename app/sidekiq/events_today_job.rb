@@ -3,8 +3,8 @@ class EventsTodayJob
   include DatabaseConnection
 
   def perform
+    date = Time.now.strftime("%d/%m/%Y")
     events = Hash.new
-    db_connection = DatabaseConnection.new
     all_calendar_events.each do |mod, calendar_events|
       events[mod] = calendar_events.map.with_index(1) do |event, index|
           {
@@ -17,17 +17,15 @@ class EventsTodayJob
           }
       end
     end
-    DatabaseConnection.store_info(events)
+
+    events.each do |mod, calendar_events|
+      DatabaseConnection.store_data(["mods", "#{mod.to_s}"])
+      DatabaseConnection.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
+    end
   end
 
   def all_calendar_events
     calendar_facade = GoogleCalendarFacade.new
     calendar_facade.create_all_calendar_events
-  end
-
-  def store_info(events_hash)
-    events_hash.each do |mod, calendar_events|
-      DatabaseConnection.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
-    end
   end
 end

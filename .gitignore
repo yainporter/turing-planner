@@ -41,4 +41,5 @@
 
 /.dockerignore
 /app/node_modules
-.entrypoint.sh
+/entrypoint.sh
+/turing-planner-73e2d7998a61.json

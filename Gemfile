@@ -51,7 +51,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
+gem "googleauth"
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
@@ -67,20 +67,23 @@ gem "faraday"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-  gem "capybara"
   gem "pry"
   gem "rspec-rails"
   gem "faker"
   gem "factory_bot_rails"
-  gem "simplecov", require: false
-  gem "launchy"
-  gem "orderly"
-  gem "shoulda-matchers"
-  gem "webmock"
-  gem "vcr"
-  gem "timecop"
   gem "dotenv-rails"
+end
+
+group :test do
   gem 'rspec-sidekiq'
+  gem "timecop"
+  gem "vcr"
+  gem "webmock"
+  gem "shoulda-matchers"
+  gem "orderly"
+  gem "capybara"
+  gem "launchy"
+  gem "simplecov", require: false
 end
 
 group :development do

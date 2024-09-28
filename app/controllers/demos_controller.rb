@@ -1,7 +1,9 @@
-class DemoController < ApplicationController
+class DemosController < ApplicationController
   def show
     @mod = demo_params[:mod]
-    events = REDIS.get("events_for_#{current_user[:mod]}_#{date}")
+    today = Time.now.strftime("%d/%m/%Y")
+    events = $redis.get("events_for_#{@mod}_#{today}")
+
     if events
       @event_list = JSON.parse(events, symbolize_names: true)
     end

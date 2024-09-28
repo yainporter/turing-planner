@@ -11,7 +11,7 @@ class ThumbnailJob
           links = links.to_json
 
           DatabaseConnection.store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
-          ActionCable.server.broadcast('notifications', { status: 'completed'})
+          ActionCable.server.broadcast('notific ations', { status: 'completed'})
         end
       end
     end
