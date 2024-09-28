@@ -31,7 +31,6 @@ gem 'redis-rails'
 gem 'mock_redis'
 
 gem "sidekiq"
-gem "hiredis", "~> 0.6.0"
 gem "redis", ">= 3.2.0"
 
 ## HTTP Caching
