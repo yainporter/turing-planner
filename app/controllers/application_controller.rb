@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :get_events_list
   before_action :load_thumbnails
-  include DatabaseConnection
   include GoogleCredentials
 
   def after_sign_in_path_for(resource)
@@ -23,6 +22,4 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-
 end

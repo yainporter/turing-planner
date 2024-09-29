@@ -1,6 +1,7 @@
 class EventsTodayJob
   include Sidekiq::Job
   include DatabaseConnection
+  include GoogleCredentials
 
   def perform
     date = Time.now.strftime("%d/%m/%Y")
@@ -19,10 +20,10 @@ class EventsTodayJob
       end
     end
 
-    DatabaseConnection.store_data(["calendars", "#{calendar_events.keys.to_json}"])
-    
+    $redis.set(["calendars", "#{calendar_events.keys.to_json}"])
+
     events.each do |mod, calendar_events|
-      DatabaseConnection.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
+      $redis.set(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
     end
   end
 

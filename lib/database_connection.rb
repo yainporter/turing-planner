@@ -1,13 +1,13 @@
 module DatabaseConnection
-  def self.store_data(array)
-    $redis.set(array[0], array[1])
-  end
+  # def self.store_data(array)
+  #   $redis.set(array[0], array[1])
+  # end
 
-  def self.store_events_today(events, date)
-    events.each do |mod, calendar_events|
-      self.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
-    end
-  end
+  # def self.store_events_today(events, date)
+  #   events.each do |mod, calendar_events|
+  #     self.store_data(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
+  #   end
+  # end
 
   # def self.events_list_today
   #   date = Time.now.strftime("%d/%m/%Y")

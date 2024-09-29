@@ -14,7 +14,7 @@ class ThumbnailJob
 
         if url.include?(google_presentation_url) && thumbnails_missing?(drive_id)
           links = slides_facade.thumbnail_urls(drive_id).to_json
-          DatabaseConnection.store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
+          $redis.set(["thumbnails_for_#{link_and_text[:drive_id]}", links])
         end
       end
     end

@@ -37,10 +37,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       credentials = {
       token: auth_hash[:credentials][:token],
       refresh_token: auth_hash[:credentials][:refresh_token]
-    }
+      }
       credentials = credentials.to_json
-      data = [user_email, credentials]
-      DatabaseConnection.store_data(data)
+      $redis.set(user_email, credentials)
     end
   end
 end
