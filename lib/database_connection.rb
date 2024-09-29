@@ -9,15 +9,17 @@ module DatabaseConnection
     end
   end
 
-  def self.events_list_today(mod)
-    date = Time.now.strftime("%d/%m/%Y")
-    events = $redis.get("events_for_#{mod}_#{date}")
-    if events
-      JSON.parse(events, symbolize_names: true)
-    else
-      nil
-    end
-  end
+  # def self.events_list_today
+  #   date = Time.now.strftime("%d/%m/%Y")
+  #   events = $redis.get("events_for_#{mod}_#{date}")
+  #   if events
+  #     JSON.parse(events, symbolize_names: true)
+  #   else
+  #     nil
+  #   end
+  # end
+
+
 
   def self.thumbnails(drive_id)
     urls = $redis.get("thumbnails_for_#{drive_id}")

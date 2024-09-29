@@ -2,16 +2,19 @@ class ThumbnailJob
   include Sidekiq::Job
   include DatabaseConnection
 
-  def perform(access_token, mod)
-    events_list(mod).map do |event|
-      event[:links_and_text].map do |link_and_text|
-        if link_and_text[:url].include?("https://docs.google.com/presentation") && thumbnails_missing?(link_and_text[:drive_id])
-          slides_facade = GoogleSlidesFacade.new({access_token: access_token})
-          links = slides_facade.thumbnail_urls(link_and_text[:drive_id])
-          links = links.to_json
+  def perform(calendar)
+    slides_facade = GoogleSlidesFacade.new
+    today = Time.now.strftime("%d/%m/%Y")
+    events_list = JSON.parse($redis.get("events_for_#{calendar}_#{today}"))
+    events_list.each do |event|
+      event["links_and_text"].each do |link_and_text|
+        url = link_and_text["url"]
+        drive_id = link_and_text["drive_id"]
+        google_presentation_url = "https://docs.google.com/presentation"
 
+        if url.include?(google_presentation_url) && thumbnails_missing?(drive_id)
+          links = slides_facade.thumbnail_urls(drive_id).to_json
           DatabaseConnection.store_data(["thumbnails_for_#{link_and_text[:drive_id]}", links])
-          ActionCable.server.broadcast('notific ations', { status: 'completed'})
         end
       end
     end
@@ -19,8 +22,17 @@ class ThumbnailJob
 
   private
 
+  # def slides_service
+  #   slides_service = GoogleSlidesService.new
+  # end
+
+  # def access_token
+  #   google_auth = GoogleOAuthService.new
+  #   google_auth.refresh_access_token
+  # end
+
   def thumbnails_missing?(drive_id)
-    if thumbnails(drive_id)
+    if  $redis.get("thumbnails_for_#{drive_id}")
       false
     else
       true

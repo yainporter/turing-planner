@@ -1,9 +1,6 @@
 class GoogleSlidesFacade
-  def initialize(hash)
-    @slides_service =  GoogleSlidesService.new({
-      access_token: hash[:access_token],
-      refresh_token: hash[:refresh_token]
-    })
+  def initialize
+    @slides_service = GoogleSlidesService.new
   end
 
   def thumbnail_urls(presentation_id)
@@ -17,3 +14,4 @@ class GoogleSlidesFacade
     urls
   end
 end
+# drive_id =  "1LYnfW7kY9wtBxF3PO5iruc7B4Qkuy5NE948dps21gFE"

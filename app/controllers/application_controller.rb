@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :check_credentials
   before_action :get_events_list
-  # before_action :load_thumbnails
+  before_action :load_thumbnails
   include DatabaseConnection
 
   def after_sign_in_path_for(resource)
@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_credentials
-    unless credentials.nil? || expired?
-      set_credentials
-    end
+    return unless credentials.nil?
+
+    GoogleOAuthService.new
   end
 
   def get_events_list
@@ -21,23 +21,17 @@ class ApplicationController < ActionController::Base
   end
 
   def load_thumbnails
-    ThumbnailJob.perform_async(credentials, ":Mod 1")
+    return unless $redis.get("calendars")
+
+    calendars = JSON.parse($redis.get("calendars"))
+    calendars.each do |calendar|
+      ThumbnailJob.perform_async(calendar)
+    end
   end
 
   private
 
-  def set_credentials
-    time = DateTime.now
-    $redis.set("expiration", time.advance(seconds: 3600))
-    google_oauth = GoogleOAuthService.new
-    $redis.set("access_token", google_oauth.refresh_access_token)
-  end
-
   def credentials
-    $redis.get("access_token")
-  end
-
-  def expired?
-    $redis.get("expiration") || DateTime.now.to_s >= $redis.get("expiration")
+    $redis.get(ACCESS_TOKEN)
   end
 end

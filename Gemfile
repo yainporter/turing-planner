@@ -54,8 +54,8 @@ gem "googleauth"
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
-gem "google-api-ruby-client"
 gem "google-apis-calendar_v3"
+gem 'google-apis-slides_v1', '~> 0.1'
 gem "tailwindcss-rails"
 gem "nokogiri"
 gem "faraday"
