@@ -1,6 +1,8 @@
-<div class="container mx-auto">
-  <div class="text-center pt-6">
-    <h1 class="text-5xl">Schedule For the Day</h1>
+<div class="bg-white rounded-lg shadow m-4 dark:bg-gray-800 px-5">
+  <div class="w-full mx-auto max-w-screen-xl p-4 md:items-center ">
+  <div class="text-center pt-6 ">
+    <h1 class="text-5xl">Schedule for the Day</h1>
+    <h2 class="text-2xl mt-5"><%= Time.now.strftime("%A - %B %d, %Y") %></h2>
   </div>
   <% if @event_list %>
     <div id="accordion-nested-parent" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
@@ -39,4 +41,5 @@
       <% end %>
     </div>
   <% end %>
+  </div>
 </div>
