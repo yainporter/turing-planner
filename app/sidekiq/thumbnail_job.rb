@@ -22,15 +22,6 @@ class ThumbnailJob
 
   private
 
-  # def slides_service
-  #   slides_service = GoogleSlidesService.new
-  # end
-
-  # def access_token
-  #   google_auth = GoogleOAuthService.new
-  #   google_auth.refresh_access_token
-  # end
-
   def thumbnails_missing?(drive_id)
     if  $redis.get("thumbnails_for_#{drive_id}")
       false

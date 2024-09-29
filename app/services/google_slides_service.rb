@@ -1,6 +1,6 @@
 class GoogleSlidesService
   include GoogleCredentials
-  
+
   def initialize;end
 
   def conn
@@ -37,11 +37,6 @@ class GoogleSlidesService
   end
 
   private
-
-  def access_token
-    google_auth = GoogleOAuthService.new
-    google_auth.refresh_access_token
-  end
 
   def parse_error_message(e)
     JSON.parse(e.response_body, symbolize_names: true)[:error][:message]
