@@ -19,8 +19,6 @@ module DatabaseConnection
   #   end
   # end
 
-
-
   def self.thumbnails(drive_id)
     urls = $redis.get("thumbnails_for_#{drive_id}")
     if urls

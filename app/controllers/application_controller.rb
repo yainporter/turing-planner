@@ -1,19 +1,12 @@
 class ApplicationController < ActionController::Base
-  # skip_before_action :verify_authenticity_token
   protect_from_forgery with: :exception
-  before_action :check_credentials
   before_action :get_events_list
   before_action :load_thumbnails
   include DatabaseConnection
+  include GoogleCredentials
 
   def after_sign_in_path_for(resource)
     dashboard_path
-  end
-
-  def check_credentials
-    return unless credentials.nil?
-
-    GoogleOAuthService.new
   end
 
   def get_events_list
@@ -31,7 +24,5 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def credentials
-    $redis.get(ACCESS_TOKEN)
-  end
+
 end
