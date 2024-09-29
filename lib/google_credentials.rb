@@ -1,9 +1,5 @@
 module GoogleCredentials
-  extend ActiveSupport::Concern
-
-  included do
-    before_action :get_access_token
-  end
+  ACCESS_TOKEN = 'google_oauth_token'
 
   def get_access_token
     access_token = $redis.get(ACCESS_TOKEN)
@@ -12,7 +8,7 @@ module GoogleCredentials
 
     new_token = refresh_access_token
 
-    set_credentials(access_token)
+    set_credentials(new_token)
     new_token
   end
 

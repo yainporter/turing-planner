@@ -1,13 +1,13 @@
 class GoogleSlidesService
-  def initialize
-    @access_token = access_token
-  end
+  include GoogleCredentials
+  
+  def initialize;end
 
   def conn
     Faraday.new(url: 'https://slides.googleapis.com/') do |conn|
       conn.request :url_encoded
       conn.adapter Faraday.default_adapter
-      conn.headers['Authorization'] = "Bearer #{@access_token}"
+      conn.headers['Authorization'] = "Bearer #{get_access_token}"
       conn.headers['Content-Type'] = 'application/json'
     end
   end

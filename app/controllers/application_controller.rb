@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
+  include GoogleCredentials
+
   protect_from_forgery with: :exception
+  before_action :get_access_token
   before_action :get_events_list
   before_action :load_thumbnails
-  include GoogleCredentials
 
   def after_sign_in_path_for(resource)
     dashboard_path

@@ -14,4 +14,3 @@ class GoogleSlidesFacade
     urls
   end
 end
-# drive_id =  "1LYnfW7kY9wtBxF3PO5iruc7B4Qkuy5NE948dps21gFE"
