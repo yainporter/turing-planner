@@ -1,3 +1,0 @@
-class RefreshToken < ApplicationRecord
-
-end
