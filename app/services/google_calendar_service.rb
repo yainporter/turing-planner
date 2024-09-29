@@ -7,9 +7,9 @@ class GoogleCalendarService
     Faraday.new(url: 'https://www.googleapis.com') do |faraday|
       faraday.params["key"] = ENV["GOOGLE_API_KEY"]
       # faraday.params["timeMin"] = (Time.now + @days_in_advance.day).strftime('%Y-%m-%dT05:00:00%z')
-      faraday.params["timeMin"] = (Time.now - 17.days).strftime('%Y-%m-%dT05:00:00%z')
+      faraday.params["timeMin"] = (Time.now - 18.days).strftime('%Y-%m-%dT05:00:00%z')
       # faraday.params["timeMax"] = (Time.now + @days_in_advance.day).strftime('%Y-%m-%dT23:00:00%z')
-      faraday.params["timeMax"] = (Time.now - 17.days).strftime('%Y-%m-%dT23:00:00%z')
+      faraday.params["timeMax"] = (Time.now - 18.days).strftime('%Y-%m-%dT23:00:00%z')
       faraday.params["singleEvents"] = true
       faraday.params["orderBy"] = "startTime"
       faraday.request :json

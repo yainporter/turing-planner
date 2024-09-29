@@ -20,10 +20,10 @@ class EventsTodayJob
       end
     end
 
-    $redis.set(["calendars", "#{calendar_events.keys.to_json}"])
+    $redis.set("calendars", "#{calendar_events.keys.to_json}")
 
     events.each do |mod, calendar_events|
-      $redis.set(["events_for_#{mod.to_s}_#{date}", calendar_events.to_json])
+      $redis.set("events_for_#{mod.to_s}_#{date}", calendar_events.to_json)
     end
   end
 
