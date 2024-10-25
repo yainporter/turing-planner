@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     today = Time.now.strftime("%d/%m/%Y")
-    events = REDIS.get("events_for_#{current_user[:mod]}_#{today}")
+    events = $redis.get("events_for_#{current_user[:mod]}_#{today}")
     if events
       @event_list = JSON.parse(events, symbolize_names: true)
     end

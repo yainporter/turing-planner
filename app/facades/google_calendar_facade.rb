@@ -11,7 +11,6 @@ class GoogleCalendarFacade
       @all_calendar_events[mod] = create_calendar_events(calendar_id).compact
       # Compact is needed to get rid of nil events in the array because of the if statement
     end
-
     @all_calendar_events
   end
 

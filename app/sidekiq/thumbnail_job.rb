@@ -11,10 +11,9 @@ class ThumbnailJob
         url = link_and_text["url"]
         drive_id = link_and_text["drive_id"]
         google_presentation_url = "https://docs.google.com/presentation"
-
         if url.include?(google_presentation_url) && thumbnails_missing?(drive_id)
           links = slides_facade.thumbnail_urls(drive_id).to_json
-          $redis.set("thumbnails_for_#{link_and_text[:drive_id]}", links)
+          $redis.set("thumbnails_for_#{drive_id}", links)
         end
       end
     end

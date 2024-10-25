@@ -9,7 +9,7 @@ class GoogleSlidesFacade
     urls = slides.map do |slide|
       slide_id = slide[:objectId]
       thumbnail_data = @slides_service.get_slide_thumbnail({presentation_id: presentation_id, thumbnail_id: slide_id})
-      thumbnail_data[:contentUrl]
+      thumbnail_data["contentUrl"]
     end
     urls
   end

@@ -11,10 +11,12 @@ class ApplicationController < ActionController::Base
   end
 
   def get_events_list
+    return unless $redis.get(ACCESS_TOKEN)
     EventsTodayJob.perform_async
   end
 
   def load_thumbnails
+    return unless $redis.get(ACCESS_TOKEN)
     return unless $redis.get("calendars")
 
     calendars = JSON.parse($redis.get("calendars"))
